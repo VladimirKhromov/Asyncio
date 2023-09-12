@@ -9,19 +9,7 @@ if __name__ == '__main__':
     print(cpu_count())
     for _ in range(10000):
         integer = Value('i', 0)
-        procs = [Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 Process(target=increment_value, args=(integer,)),
-                 ]
+        procs = [Process(target=increment_value, args=(integer,)) for _ in range(12)]
 
         [p.start() for p in procs]
         [p.join() for p in procs]
