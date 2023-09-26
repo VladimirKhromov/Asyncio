@@ -29,7 +29,7 @@ async def reporter(request_count: int):
 async def main():
     loop = asyncio.get_running_loop()
     with ThreadPoolExecutor() as pool:
-        request_count = 200
+        request_count = 201
         urls = ['https://www.example.com' for _ in range(request_count)]
         reporter_task = asyncio.create_task(reporter(request_count))
         tasks = [loop.run_in_executor(pool, functools.partial(get_status_code, url)) for url in urls]

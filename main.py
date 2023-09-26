@@ -1,16 +1,24 @@
-# This is a sample Python script.
+import asyncio
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+async def task_with_delay(name, delay):
+    if delay == 4:
+        raise IndexError
+    await asyncio.sleep(delay)
+    return f"Task {name} completed after {delay} seconds"
 
+async def main():
+    tasks = [
+        task_with_delay("A", 3),
+        task_with_delay("B", 2),
+        task_with_delay("C", 1),
+        task_with_delay("D", 4),
+    ]
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    for task in asyncio.as_completed(tasks):
+        try:
+            result = await task
+            print(result)
+        except IndexError:
+            print("Error")
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+asyncio.run(main())
